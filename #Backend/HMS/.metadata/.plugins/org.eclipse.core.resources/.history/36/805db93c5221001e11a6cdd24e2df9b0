@@ -1,0 +1,20 @@
+package com.payment.model;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import jakarta.validation.constraints.Max;
+
+@Document(collation = "CardDetails")
+public class CardDetails {
+	
+	@Id
+	private String cardDetailsId;
+	private String name;
+	@Max(16)
+	private long cardNumber;
+	@Max(3)
+	private int cvv;
+	
+
+}

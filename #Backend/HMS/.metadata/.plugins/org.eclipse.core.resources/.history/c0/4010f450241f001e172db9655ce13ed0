@@ -1,0 +1,42 @@
+package com.hms.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.hms.exception.CustomException;
+import com.hms.model.Patient;
+import com.hms.repository.DoctorRepository;
+
+@Service
+public class DoctorService {
+	
+	@Autowired
+	private DoctorRepository doctorRepository;
+	
+	@Autowired
+	private SequenceGeneratorService generatorService;
+	
+	public Patient createDoctor(Patient patient) throws CustomException{
+		
+		if(patient==null) {
+			throw new CustomException("Invalid Entry for Doctor");
+		}
+		patient.setDoctorId(String.valueOf(generatorService.generateSequence(Patient.SEQUENCE_NAME)));
+		return doctorRepository.save(patient);
+		
+	}
+	
+	public List<Patient> getDoctorWithQualification(String qualification) throws CustomException{
+		
+		List<Patient> getDoctor = doctorRepository.getDoctorByQualification(qualification);
+		if(getDoctor==null) {
+			throw new CustomException("Invalid Qualification");
+		}
+		return getDoctor;
+	}
+	
+	
+
+}

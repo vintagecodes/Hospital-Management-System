@@ -1,0 +1,11 @@
+package com.payment.model;
+
+
+public class Payment {
+	
+	private String paymentId;
+	private String transactionId;
+	private Appointment appoint;
+	
+
+}

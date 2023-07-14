@@ -1,0 +1,5 @@
+package com.appoint.repository;
+
+public interface AppointRepository {
+
+}

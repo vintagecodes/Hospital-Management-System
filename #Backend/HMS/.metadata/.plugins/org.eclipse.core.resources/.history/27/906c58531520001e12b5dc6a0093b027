@@ -1,0 +1,17 @@
+package com.appoint.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.appoint.model.Appointment;
+import com.appoint.repository.AppointRepository;
+
+@Service
+public class AppointmentService {
+	
+	@Autowired
+	private AppointRepository appointRepository;
+	
+	public Appointment createAppointment(String doctorId, String name, Appointment appoint) throws 
+
+}

@@ -1,0 +1,20 @@
+package com.appoint.model;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Document(collection = "Appointment")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Appointment {
+	
+	private String AppointId;
+	private Doctor doctor;
+	
+
+}

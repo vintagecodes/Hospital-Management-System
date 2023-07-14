@@ -1,0 +1,66 @@
+package com.appoint.service;
+
+import java.io.InvalidClassException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.appoint.exception.CustomException;
+import com.appoint.model.Appointment;
+import com.appoint.model.Doctor;
+import com.appoint.model.Patient;
+import com.appoint.repository.AppointRepository;
+
+@Service
+public class AppointmentService {
+	
+	@Autowired
+	private AppointRepository appointRepository;
+	
+	@Autowired
+	private SequenceGeneratorService generatorService;
+	
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	public Appointment createAppointment(String doctorId, String name, Appointment appoint) throws CustomException, InvalidClassException{
+		Appointment app = new Appointment();
+		try {
+			
+			Doctor doctor = restTemplate.getForObject("http://localhost:5000/doctor/getById/"+doctorId, Doctor.class);
+//			System.out.println("Doctor "+doctor);
+			Patient patient = restTemplate.getForObject("http://localhost:5001/patient/getByName/"+name, Patient.class);
+//			System.out.println("Patient "+patient);
+			if(doctor!=null && patient!=null) {
+				app.setAppointId(String.valueOf(generatorService.generateSequence(Appointment.SEQUENCE_NAME)));
+				app.setDoctor(doctor);
+				app.setPatient(patient);
+				app.setCause(appoint.getCause());
+				app.setStatus(appoint.getStatus());
+				app.setSchedule(appoint.getSchedule());
+			}
+		}catch (Exception e) {
+            throw new InvalidClassException("Error creating rental: " + e.getMessage());
+        }
+		return appointRepository.save(app);
+		
+	}
+	
+	public List<Appointment> getAppointmentById(String appointId) throws CustomException{
+		try {
+			List<Appointment> getappoint = appointRepository.findByAppointId(appointId);
+			if(getappoint.contains(appointId)) {
+				return getappoint;
+			}else {
+				throw new CustomException("Incorrect AppointmentId");
+			}
+		} catch(CustomException e) {
+			throw new CustomException("Something wewnt Wrong");
+		}
+		
+	}
+
+}
