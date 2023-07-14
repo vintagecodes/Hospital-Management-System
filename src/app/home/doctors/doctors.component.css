@@ -1,0 +1,16 @@
+.table {
+    margin: auto;
+    margin-top: 25px;
+    height: 100%;
+    width: 80%;
+}
+
+button{
+    padding: 0;
+border: none;
+background: none
+}
+
+#cause{
+    width: 80%;
+}

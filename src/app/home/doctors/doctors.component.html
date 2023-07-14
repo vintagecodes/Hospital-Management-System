@@ -1,0 +1,102 @@
+<app-header></app-header>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Doctor's Name</th>
+        <th scope="col">Qualification</th>
+        <th scope="col">Specialization</th>
+        <th scope="col">Experience</th>
+        <th scope="col">Fees</th>
+        <th scope="col">Phone Number</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let i of doctorList">
+      <tr>
+        <th scope="row">{{i.doctorId}}</th>
+        <td>{{i.name}}</td>
+        <td>{{i.qualification}}</td>
+        <td>{{i.specialization}}</td>
+        <td>{{i.yearsOfExp}}</td>
+        <td>{{i.fees}}</td>
+        <td>{{i.phoneNo}}</td>
+        <td class="action-link">
+            <span type="button" (click)="outsider()" *ngIf="!isLoggedIn" style="color:red;">Book Appointment</span>  
+            <button type="button" data-bs-toggle="modal" data-bs-target="#myModal" (click)="patient(this.currentUser, i.doctorId)" *ngIf="showPatientBoard" style="color:red;">Book Appointment</button>  
+          </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+    <!-- The Modal -->
+    <div *ngIf="showModalBox" class="modal fade" role="dialog" id="myModal" tabindex="2" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Book Your Appointment</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+             <div >
+                <table class="table" *ngFor="let j of patDetials">
+                    <thead>
+                      <tr>
+                        <th>Patient Name</th>
+                        <th>Email Id</th>
+                        <th>Phone Number</th>
+                        <th>Age</th>
+                        <th>Address</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr >
+                        <td>{{j.name}}</td>
+                        <td>{{j.email}}</td>
+                        <td>{{j.phoneNo}}</td>
+                        <td>{{j.age}}</td>
+                        <td>{{j.address}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+             </div>
+             <div class="form-part">
+                <form method="POST" class="register-form" id="register-form"  *ngIf="showPatientBoard"
+                name="form"
+                (ngSubmit)="f.form.valid && bookAppointment(Id, this.currentUser, f)"
+                #f="ngForm"
+                novalidate>
+                    <div class="form-group">
+                        <label for="cause"><i class="zmdi zmdi-account material-icons-name">Write your Cause: &nbsp;</i></label>
+                        <textarea  name="cause" id="cause" [(ngModel)]="form.cause" #cause="ngModel" placeholder="Write what is the cause of scheduling appointment" minlength="20" maxlength="30" required></textarea>
+                        <div class="alert-danger" *ngIf="cause.errors && f.submitted">
+                            <div *ngIf="cause.errors['required']">cause is required</div>
+                            <div *ngIf="cause.errors['minlength']">
+                                cause must be at least 30 characters
+                            </div>
+                            <div *ngIf="cause.errors['maxlength']">
+                                cause must be at most 20 characters
+                            </div>
+                          </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="schedule"><i class="zmdi zmdi-lock">Schedule Date </i></label>
+                        <input type="date" name="schedule" id="schedule" [(ngModel)]="form.schedule"
+                        #schedule="ngModel" placeholder="schedule" required/>
+                        <div class="alert-danger" *ngIf="schedule.errors && f.submitted">
+                            <div *ngIf="schedule.errors['required']">schedule is required</div>
+                          </div>
+                    </div>
+                    <div class="form-group form-button">
+                        <input type="submit" name="book" id="book" class="form-submit" value="Book Now"/>
+                    </div>
+                </form>
+             </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>

@@ -1,0 +1,85 @@
+<app-header></app-header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="/assets/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Sign up</h2>
+                        <form method="POST" class="register-form" id="register-form"  *ngIf="!isSuccessful"
+                        name="form"
+                        (ngSubmit)="f.form.valid && onSubmit()"
+                        #f="ngForm"
+                        novalidate>
+                            <div class="form-group">
+                                <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="username" id="username" [(ngModel)]="form.username" #username="ngModel" placeholder="Your Name" required/>
+                                <div class="alert-danger" *ngIf="username.errors && f.submitted">
+                                    <div *ngIf="username.errors['required']">Username is required</div>
+                                    <div *ngIf="username.errors['minlength']">
+                                      Username must be at least 3 characters
+                                    </div>
+                                    <div *ngIf="username.errors['maxlength']">
+                                      Username must be at most 20 characters
+                                    </div>
+                                    <div *ngIf="username.errors['pattern']">
+                                      Username must not contain any digits
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" name="email" id="email" [(ngModel)]="form.email" #email="ngModel" placeholder="Your Email" required/>
+                                <div class="alert-danger" *ngIf="email.errors && f.submitted">
+                                    <div *ngIf="email.errors['required']">Email is required</div>
+                                    <div *ngIf="email.errors['email']">
+                                      Email must be a valid email address
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="password" id="password" [(ngModel)]="form.password"  minlength="6"
+                                #password="ngModel" placeholder="Password" required/>
+                                <div class="alert-danger" *ngIf="password.errors && f.submitted">
+                                    <div *ngIf="password.errors['required']">Password is required</div>
+                                    <div *ngIf="password.errors['minlength']">
+                                      Password must be at least 6 characters
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="roles"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="roles" name="roles" id="roles" [(ngModel)]="form.roles" #roles="ngModel" placeholder="Enter Your Role"/>
+                                <div class="alert-danger" *ngIf="roles.errors && f.submitted">
+                                    <div *ngIf="roles.errors['required']">roles is required</div>
+                                   
+                                  </div><br>
+                                  <em class="alert-danger">Please enter role as (doctor) for Sign up as doctor.
+                                    <b>&</b>Enter Role as (patient) for Sign up as a Patient
+                                  </em>
+                                  
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="/assets/images/signup-image.jpg" alt="sing up image"></figure>
+                        <a routerLink="/login" class="signup-image-link">I am already member</a>
+                    </div>
+                </div>
+            </div>
+        </section>
