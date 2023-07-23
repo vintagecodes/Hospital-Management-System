@@ -64,8 +64,8 @@ public class AuthController {
 	}
 	
 	@DeleteMapping("/delete/{username}")
-	public String deleteUsers(@PathVariable("username") String username) {
-		return authService.deleteUsers(username);
+	public void deleteUsers(@PathVariable("username") String username) {
+		authService.deleteUsers(username);
 	}
 //	
 //	@PostMapping("/logout")

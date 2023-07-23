@@ -40,4 +40,14 @@ export class AuthService {
     }, httpOptions);
   }
 
+  getUsers(){
+    return this.http.get(API + 'users');
+  }
+
+  deleteUsers(username:string){
+    return this.http.delete(API + 'delete/'+username).subscribe((data)=>{
+      console.log("Deleted SuccessFully");
+    })
+  }
+
 }

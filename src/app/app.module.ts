@@ -13,6 +13,15 @@ import { DoctorsComponent } from './home/doctors/doctors.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
 import { AppointHistoryComponent } from './appoint-history/appoint-history.component';
+import { AppointDashboardComponent } from './appoint-dashboard/appoint-dashboard.component';
+import { ListComponent } from './appoint-dashboard/list/list.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { SideNavComponent } from './admin-dashboard/side-nav/side-nav.component';
+import { DoctorComponent } from './admin-dashboard/doctor/doctor.component';
+import { PatientComponent } from './admin-dashboard/patient/patient.component';
+import { PatientListComponent } from './admin-dashboard/patient-list/patient-list.component';
+import { UsersComponent } from './admin-dashboard/users/users.component';
+import { DoctorListComponent } from './admin-dashboard/doctor/doctor-list/doctor-list.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +33,15 @@ import { AppointHistoryComponent } from './appoint-history/appoint-history.compo
     DoctorsComponent,
     UpdateProfileComponent,
     AppointHistoryComponent,
+    AppointDashboardComponent,
+    ListComponent,
+    AdminDashboardComponent,
+    SideNavComponent,
+    DoctorComponent,
+    PatientComponent,
+    PatientListComponent,
+    UsersComponent,
+    DoctorListComponent,
   ],
   imports: [
     BrowserModule,

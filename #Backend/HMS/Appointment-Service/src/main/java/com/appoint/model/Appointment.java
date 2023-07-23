@@ -24,6 +24,7 @@ public class Appointment {
 	private Patient patient;
 	private String cause;
 	private String status;
+	private String paymentStatus;
 	private String schedule;
 	private double totalFees;
 

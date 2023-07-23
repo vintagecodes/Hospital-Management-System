@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hms.exception.CustomException;
 import com.hms.model.Patient;
+import com.hms.repository.PatientRepository;
 import com.hms.service.PatientService;
 
 @RestController
@@ -24,6 +26,9 @@ public class PatientController {
 	
 	@Autowired
 	private PatientService patientService;
+	
+	@Autowired
+	private PatientRepository patientRepository;
 	
 	@PostMapping("/created")
 	public ResponseEntity<Patient> createPatient(@RequestBody Patient patient) throws CustomException {
@@ -65,6 +70,18 @@ public class PatientController {
 			ResponseEntity.badRequest().body(new CustomException("Not Found"));
 		}
 		return ResponseEntity.ok(getPatient);
+	}
+	
+	
+	
+	@GetMapping("/viewALL")
+	public List<Patient> getAllPatient(){
+		return patientRepository.findAll();
+	}
+	
+	@DeleteMapping("/deleteByName/{name}")
+	public Patient deletePatient(@PathVariable String name) {
+		return patientRepository.deleteByName(name);
 	}
 	
 

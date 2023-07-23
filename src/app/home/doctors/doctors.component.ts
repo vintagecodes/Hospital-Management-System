@@ -35,6 +35,7 @@ export class DoctorsComponent {
   form:any = {
     "cause":'',
     "status":'',
+    "paymentStatus":'',
     "schedule":''
   };
 
@@ -98,6 +99,7 @@ export class DoctorsComponent {
     this.form = {
       cause:f.value.cause,
       status:"processing",
+      paymentStatus:"not paid",
       schedule:f.value.schedule
     }
 this.appointmentService.createAppointment(Ids,user,this.form).subscribe((data) =>{

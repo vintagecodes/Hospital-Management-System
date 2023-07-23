@@ -13,4 +13,12 @@ export class DoctorServiceService {
   getDoctorsList(){
     return this.http.get(this.DOCTOR_URL+'viewAll');
   }
+
+  postDoctor(doctor:any){
+    return this.http.post(this.DOCTOR_URL+'created',doctor);
+  }
+
+  deleteDoctorPerName(name:string){
+    return this.http.delete(this.DOCTOR_URL+'deleteByName/'+name);
+  }
 }

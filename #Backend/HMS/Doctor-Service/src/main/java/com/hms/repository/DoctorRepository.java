@@ -14,5 +14,7 @@ public interface DoctorRepository  extends MongoRepository<Doctor,String>{
 	
 	Doctor findByDoctorId(String doctorId);
 
+	
+	void deleteByName(String name);
 
 }

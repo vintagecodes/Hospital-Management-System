@@ -6,3 +6,7 @@
     width:45px;
     height: 45px;
 }
+
+.form-inline{
+    margin-left: -25px;
+}

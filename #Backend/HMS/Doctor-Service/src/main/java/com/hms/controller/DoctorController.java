@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hms.exception.CustomException;
 import com.hms.model.Doctor;
+
+import com.hms.repository.DoctorRepository;
 import com.hms.service.DoctorService;
 
 @RestController
@@ -25,6 +28,9 @@ public class DoctorController {
 	
 	@Autowired
 	private DoctorService doctorService;
+	
+	@Autowired
+	private DoctorRepository doctorRepository;
 	
 	@PostMapping("/created")
 	public ResponseEntity<Doctor> createDoctor(@RequestBody Doctor doctor) throws CustomException {
@@ -75,6 +81,12 @@ public class DoctorController {
 		}catch (CustomException e) {
 			throw new CustomException("Incorrect Input");
 		}
+	}
+	
+	
+	@DeleteMapping("/deleteByName/{name}")
+	public void Doctor(@PathVariable String name) {
+		doctorRepository.deleteByName(name);
 	}
 
 }

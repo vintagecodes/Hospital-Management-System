@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { TokenStorageService } from '../service/token-storage.service';
 import { PatientService } from '../service/patient.service';
+import { DoctorServiceService } from '../service/doctor-service.service';
 
 @Component({
   selector: 'app-update-profile',
@@ -18,6 +19,17 @@ export class UpdateProfileComponent {
     "address":'',
     "age":''
   }
+
+  doctorForm:any = {
+    "name":'',
+    "email":'',
+    "specialization":'',
+    "phoneNo":'',
+    "fees":'',
+    "qualification":'',
+    "yearsOfExp":'',
+    "daysOfAvail":''
+  }
   isLoggedIn = false;
   currentUser: any;
   public roles: string[] = [];
@@ -26,7 +38,8 @@ export class UpdateProfileComponent {
   showAdminBoard = false;
   username?: string;
 
-  constructor(private route:Router,private authService: AuthService, private tokenStorageService: TokenStorageService, private patientService: PatientService) { }
+  constructor(private route:Router,private authService: AuthService, private tokenStorageService: TokenStorageService, private patientService: PatientService,
+    private doctorService:DoctorServiceService) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -56,6 +69,24 @@ export class UpdateProfileComponent {
     this.patientService.postPatientFrom(this.form).subscribe((data) => {
       console.log(data);
     })
+  }
+
+  onSubmitProfileForDoctor(f:any){
+    this.doctorForm = {
+      name:f.value.name,
+      email:f.value.email,
+      specialization:f.value.specialization,
+      phoneNo:f.value.phoneNo,
+      fees:f.value.fees,
+      qualification:f.value.qualification,
+      yearsOfExp:f.value.yearsOfExp,
+      daysOfAvail:f.value.daysOfAvail
+    };
+
+    this.doctorService.postDoctor(this.doctorForm).subscribe((data) =>{
+      console.log(data);
+    })
+
   }
 
 }

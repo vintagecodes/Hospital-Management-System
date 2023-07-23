@@ -41,6 +41,7 @@ public class AppointmentService {
 				app.setPatient(patient);
 				app.setCause(appoint.getCause());
 				app.setStatus(appoint.getStatus());
+				app.setPaymentStatus(appoint.getPaymentStatus());
 				app.setSchedule(appoint.getSchedule());
 				app.setTotalFees(doctor.getFees());
 			}
@@ -62,12 +63,60 @@ public class AppointmentService {
 	}
 	
 	public List<Appointment> getAppointByUsername(String username) throws CustomException{
+		
 		List<Appointment> getU = appointRepository.findByUsername(username);
 //		System.out.println("List :"+getU);
 		if(getU.isEmpty()) {
 			throw new CustomException("Invalid Username");
 		}
 		return getU;
+	}
+	
+	public List<Appointment> getAppointByDoctorUsername(String username) throws CustomException{
+		
+		List<Appointment> getU = findByUsername(username);
+//		System.out.println("List :"+getU);
+		if(getU.isEmpty()) {
+			throw new CustomException("Invalid Username");
+		}
+		return getU;
+	}
+	
+	private List<Appointment> findByUsername(String username) {
+		// TODO Auto-generated method stub
+		List<Appointment> newCreatedList = new ArrayList<>();
+		List<Appointment> getAppointmentDetailsPerDoctor=appointRepository.findAll();
+		for(Appointment b:getAppointmentDetailsPerDoctor) {
+			if(b.getDoctor().getName().equals(username)) {
+				newCreatedList.add(b);
+				
+			}
+		}
+		return newCreatedList;
+		
+		
+	}
+	
+	
+	public List<Appointment> getAppointList() throws CustomException{
+		List<Appointment> getU = appointRepository.findAll();
+//		System.out.println("List :"+getU);
+		if(getU.isEmpty()) {
+			throw new CustomException("Something went Wrong!");
+		}
+		return getU;
+	}
+	
+	public Appointment updatePaymentStatus(String appointId, Appointment appointment) throws CustomException{
+		Appointment app1 = appointRepository.findByAppointId(appointId);
+		app1.setPaymentStatus(appointment.getPaymentStatus());
+		return appointRepository.save(app1);
+	}
+	
+	public Appointment updateStatus(String appointId, Appointment appointment) throws CustomException{
+		Appointment app1 = appointRepository.findByAppointId(appointId);
+		app1.setStatus(appointment.getStatus());
+		return appointRepository.save(app1);
 	}
 
 }

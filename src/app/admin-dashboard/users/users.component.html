@@ -1,0 +1,30 @@
+<app-side-nav></app-side-nav>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">User Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Roles</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let i of user; let j = index;">
+      <tr>
+        <th scope="row">{{j}}</th>
+        <td>{{i.username}}</td>
+        <td>{{i.email}}</td>
+        <td>
+            <ul>
+                <li *ngFor="let role of i.roles">
+                    {{role.name}}
+                </li>
+            </ul>
+        </td>
+        <td class="action-link">
+            <!-- <span type="button" *ngIf="!isLoggedIn" style="color:red;">Book Appointment</span>   -->
+            <button type="button" (click)="deleteUsers(i.username)"  *ngIf="showAdminBoard" style="color:red;">Delete</button>  
+          </td>
+      </tr>
+    </tbody>
+  </table>

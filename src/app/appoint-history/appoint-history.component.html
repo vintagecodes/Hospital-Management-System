@@ -20,6 +20,7 @@
                           <th>Fees</th>
                           <th>Scheduled Date</th>
                           <th>Status</th>
+                          <th>Payment Status</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -37,8 +38,14 @@
                           <td>{{i.cause}}</td>
                           <td>&#8377;{{i.totalFees}}</td>
                           <td>{{i.schedule}}</td>
-                          <td><label class="badge badge-danger">{{i.status}}</label></td>
-                          <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#PaymentModal" (click)="payNow(i.appointId, i.username)" style="width:80px; height: 40px;">Pay</button></td>
+                          <td><label [ngClass]="{
+                            'badge badge-danger':i.status === 'processing',
+                            'badge badge-success':i.status === 'confirmed'
+                          }">{{i.status}}</label></td>
+                          <td>{{i.
+                            paymentStatus}}
+                            </td>
+                          <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#PaymentModal" *ngIf="showPayButton(i.paymentStatus)" (click)="payNow(i.appointId, i.username, i.totalFees)" style="width:80px; height: 40px;">Pay</button></td>
                         </tr>
                       </tbody>
                     </table>
@@ -57,17 +64,62 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Payment Gateway</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          ...
+          <form method="POST" class="register-form" id="register-form"  *ngIf="showPatientBoard"
+                        name="form"
+                        (ngSubmit)="f.form.valid && onSubmit()"
+                        #f="ngForm"
+                        novalidate>
+                            <div class="form-group">
+                                <label for="username"><i class="zmdi zmdi-account material-icons-name">Name : &nbsp;</i></label>
+                                <input type="text" class="form-control" name="cardDetails.name" id="cardDetails.name" [(ngModel)]="form.name" minlength="14" maxlength="25" #name="ngModel" placeholder="Your Name" required/>
+                                <div class="alert-danger" *ngIf="name.errors && f.submitted">
+                                    <div *ngIf="name.errors['required']">Name is required</div>
+                                    <div *ngIf="name.errors['minlength']">
+                                      Name must be at least 14 characters
+                                    </div>
+                                    <div *ngIf="name.errors['maxlength']">
+                                      Name must be at most 25 characters
+                                    </div>
+                                    <div *ngIf="name.errors['pattern']">
+                                      Name must not contain any digits
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock">Card Number : &nbsp;</i></label>
+                                <input type="number" class="form-control" name="cardNumber" id="cardNumber" [(ngModel)]="form.cardNumber"  maxlength="16"
+                                #cardNumber="ngModel" placeholder="cardNumber" required/>
+                                <div class="alert-danger" *ngIf="cardNumber.errors && f.submitted">
+                                    <div *ngIf="cardNumber.errors['required']">cardNumber is required</div>
+                                    <div *ngIf="cardNumber.errors['maxlength']">
+                                      cardNumber must be at least 16 characters
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="cvv"><i class="zmdi zmdi-lock">Cvv : &nbsp;</i></label>
+                              <input type="password" class="form-control" name="cvv" id="cvv" [(ngModel)]="form.cvv"  maxlength="3"
+                              #cvv="ngModel" placeholder="Enter cvv" required/>
+                              <div class="alert-danger" *ngIf="cvv.errors && f.submitted">
+                                  <div *ngIf="cvv.errors['required']">cvv is required</div>
+                                  <div *ngIf="cvv.errors['maxlength']">
+                                    cvv must be at least 3 characters
+                                  </div>
+                                </div>
+                          </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" name="submit" id="submit" >Pay Now &#8377;{{this.totalAmount}}</button>
+                            </div>
+                        </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>

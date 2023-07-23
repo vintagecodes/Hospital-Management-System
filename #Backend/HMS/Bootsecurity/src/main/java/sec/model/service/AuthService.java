@@ -142,9 +142,8 @@ public class AuthService {
 		return userRepository.findByUsername(username);
 	}
 	
-	public String deleteUsers(String username) {
+	public void deleteUsers(String username) {
 		userRepository.deleteByUsername(username);
-		return "Deleted SuccessFull";
 	}
 	
 	public LogoutConfigurer<HttpSecurity> logout(HttpSecurity http) throws Exception {

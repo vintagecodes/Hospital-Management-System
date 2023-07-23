@@ -17,4 +17,12 @@ export class PatientService {
   postPatientFrom(form:any){
     return this.http.post(this.PATIENT_URL+'created',form);
   }
+
+  viewAllPatient(){
+    return this.http.get(this.PATIENT_URL+'viewALL');
+  }
+
+  deleteByName(name:string){
+    return this.http.delete(this.PATIENT_URL+'deleteByName/'+name);
+  }
 }

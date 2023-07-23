@@ -1,0 +1,33 @@
+<div style="display: flex; flex-grow: grow; margin-left: auto; margin-top: auto">
+    <app-side-nav></app-side-nav>
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Ser.NO</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone number</th>
+            <th scope="col">Specialization</th>
+            <th scope="col">Qualification</th>
+            <th scope="col">Years of experience</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let i of doctorList; let j = index;">
+          <tr>
+            <th scope="row">{{j}}</th>
+            <td>{{i.name}}</td>
+            <td>{{i.email}}</td>
+            <td>{{i.phoneNo}}</td>
+            <td>{{i.specialization}}</td>
+            <td>{{i.qualification}}</td>
+            <td>{{i.yearsOfExp}}</td>
+            <td class="action-link">
+                <!-- <span type="button" *ngIf="!isLoggedIn" style="color:red;">Book Appointment</span>   -->
+                <button type="button" (click)="deleteDoctor(i.name)"  *ngIf="showAdminBoard" style="color:red;">Delete</button>  
+              </td>
+          </tr>
+        </tbody>
+      </table>
+
+</div>

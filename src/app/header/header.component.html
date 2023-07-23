@@ -22,6 +22,7 @@
                 Location
               </span>
             </a>
+            <p>Welcome, {{this.currentUser | uppercase}}</p>
           </div>
         </div>
       </div>
@@ -54,6 +55,9 @@
                   <li class="nav-item" *ngIf="showDoctorBoard">
                     <a class="nav-link" routerLink="/appoint-dashboard">DashBoard</a>
                   </li>
+                  <li class="nav-item" *ngIf="showAdminBoard">
+                    <a class="nav-link" routerLink="/users">Admin DashBoard</a>
+                  </li>
                 </ul>
               </div>
               <div class="quote_btn-container" >
@@ -76,8 +80,8 @@
                     </span>
                   </a>
                 <form class="form-inline">
-                  <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                    <i class="fa fa-search" aria-hidden="true"></i>
+                  <button class="btn nav_search-btn">
+                   
                   </button>
                 </form>
               </div>

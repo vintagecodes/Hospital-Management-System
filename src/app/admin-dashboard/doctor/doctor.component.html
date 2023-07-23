@@ -1,0 +1,115 @@
+<div style="display: flex; flex-grow: grow; margin-left: auto; margin-top: auto">
+
+    <app-side-nav></app-side-nav>
+    <head *ngIf="showAdminBoard">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+        <!-- Font Icon -->
+        <link rel="stylesheet" href="/assets/fonts/material-icon/css/material-design-iconic-font.min.css">
+    
+        <!-- Main css -->
+        <link rel="stylesheet" href="/assets/css/style2.css">
+    </head>
+
+    <section class="signup" *ngIf="showAdminBoard">
+        <div class="container1">
+            <div class="signup-content">
+                <div class="signup-form">
+                    <h2 class="form-title">Create New Doctor</h2>
+                    <form method="POST" class="register-form" id="register-form"  
+                    name="form"
+                    (ngSubmit)="f.form.valid && onSubmitProfileForDoctor(f)"
+                    #f="ngForm"
+                    novalidate>
+                        <div class="form-group">
+                            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text" name="name" id="name" [(ngModel)]="doctorForm.name" #name="ngModel" placeholder="Your User Name" required/>
+                            <div class="alert-danger" *ngIf="name.errors && f.submitted">
+                                <div *ngIf="name.errors['required']">Username is required</div>
+                                <div *ngIf="name.errors['minlength']">
+                                  Username must be at least 3 characters
+                                </div>
+                                <div *ngIf="name.errors['maxlength']">
+                                  Username must be at most 20 characters
+                                </div>
+                                <div *ngIf="name.errors['pattern']">
+                                  Username must not contain any digits
+                                </div>
+                              </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                            <input type="email" name="email" id="email" [(ngModel)]="doctorForm.email"
+                            #email="ngModel" placeholder="email" required/>
+                            <div class="alert-danger" *ngIf="email.errors && f.submitted">
+                                <div *ngIf="email.errors['required']">email is required</div>
+                              </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="specialization"><i class="zmdi zmdi-lock"></i></label>
+                            <input type="text" name="specialization" id="specialization" [(ngModel)]="doctorForm.specialization"
+                            #specialization="ngModel" placeholder="specialization" required/>
+                            <div class="alert-danger" *ngIf="specialization.errors && f.submitted">
+                                <div *ngIf="specialization.errors['required']">specialization is required</div>
+                              </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNo"><i class="zmdi zmdi-lock"></i></label>
+                            <input type="text" name="phoneNo" id="phoneNo" [(ngModel)]="doctorForm.phoneNo"
+                            #phoneNo="ngModel" placeholder="phoneNo" required/>
+                            <div class="alert-danger" *ngIf="phoneNo.errors && f.submitted">
+                                <div *ngIf="phoneNo.errors['required']">phoneNo is required</div>
+                              </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fees"><i class="zmdi zmdi-lock"></i></label>
+                            <input type="text" name="fees" id="fees" [(ngModel)]="doctorForm.fees"
+                            #fees="ngModel" placeholder="fees" required/>
+                            <div class="alert-danger" *ngIf="phoneNo.errors && f.submitted">
+                                <div *ngIf="fees.errors['required']">fees is required</div>
+                              </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="qualification"><i class="zmdi zmdi-lock"></i></label>
+                            <input type="text" name="qualification" id="qualification" [(ngModel)]="doctorForm.qualification"
+                            #qualification="ngModel" placeholder="qualification" required/>
+                            <div class="alert-danger" *ngIf="phoneNo.errors && f.submitted">
+                                <div *ngIf="fees.errors['required']">qualification is required</div>
+                              </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="yearsOfExp"><i class="zmdi zmdi-lock"></i></label>
+                            <input type="text" name="yearsOfExp" id="yearsOfExp" [(ngModel)]="doctorForm.yearsOfExp"
+                            #yearsOfExp="ngModel" placeholder="yearsOfExp" required/>
+                            <div class="alert-danger" *ngIf="yearsOfExp.errors && f.submitted">
+                                <div *ngIf="fees.errors['required']">yearsOfExp is required</div>
+                              </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="daysOfAvail"><i class="zmdi zmdi-lock"></i></label>
+                            <input type="text" name="daysOfAvail" id="daysOfAvail" [(ngModel)]="doctorForm.daysOfAvail"
+                            #daysOfAvail="ngModel" placeholder="daysOfAvail" required/>
+                            <div class="alert-danger" *ngIf="daysOfAvail.errors && f.submitted">
+                                <div *ngIf="fees.errors['required']">daysOfAvail is required</div>
+                              </div>
+                        </div>
+                        <div class="form-group form-button">
+                            <input type="submit" name="register" id="register" class="form-submit" value="Register Details"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+</div>

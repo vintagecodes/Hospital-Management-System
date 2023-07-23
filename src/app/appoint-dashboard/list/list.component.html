@@ -1,0 +1,60 @@
+<div style="display: flex; flex-grow: grow; margin-left: auto; margin-top: auto">
+<app-appoint-dashboard></app-appoint-dashboard>
+<div class="page-content page-container" id="page-content" *ngIf="showDoctorBoard">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center">
+
+<div class="col-lg-12 grid-margin stretch-card" style="margin-left: 42%;">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Appointment History</h4>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Appointment ID</th>
+                          <th>Doctor Specialization</th>
+                          <th>Doctor Qualification</th>
+                          <th>Doctor Availability</th>
+                          <th>Patient Name</th>
+                          <th>Cause</th>
+                          <th>Fees</th>
+                          <th>Scheduled Date</th>
+                          <th>Status</th>
+                          <th>Payment Status</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody *ngFor="let i of appList">
+                        <tr>
+                          <td>{{i.appointId}}</td>
+                          <td>{{i.doctor.specialization}}
+                        </td>
+                        <td>{{i.doctor.qualification}}
+                        </td>
+                        <td>{{i.doctor.daysOfAvail}}
+                        </td>
+                        <td>{{i.patient.name}}</td>
+                          <td>{{i.cause}}</td>
+                          <td>&#8377;{{i.totalFees}}</td>
+                          <td>{{i.schedule}}</td>
+                          <td><label [ngClass]="{
+                            'badge badge-danger':i.status === 'processing',
+                            'badge badge-success':i.status === 'confirmed'
+                          }">{{i.status}}</label></td>
+                          <td>{{i.
+                            paymentStatus}}
+                            </td>
+                          <td><button class="btn btn-primary" style="width:100px; height: 40px;" *ngIf="showConfirmButton(i.status)" (click)="confirmStatus(i.appointId)">Confirm</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            </div>
+              </div>
+            </div>
+            </div>
