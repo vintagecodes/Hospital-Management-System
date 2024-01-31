@@ -67,7 +67,8 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "baseHref": "/Hospital-Management-System/"
             }
           },
           "defaultConfiguration": "production"
