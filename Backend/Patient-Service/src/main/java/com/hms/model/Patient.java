@@ -1,0 +1,30 @@
+package com.hms.model;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Document(collection = "Patient")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Patient {
+	
+	@Transient
+	public static final String SEQUENCE_NAME = "patient_id_sequence";
+	
+	@Id
+	private String patientId;
+	private String name;
+	private String email;
+	private long phoneNo;
+	private String address;
+	private int age;
+
+}

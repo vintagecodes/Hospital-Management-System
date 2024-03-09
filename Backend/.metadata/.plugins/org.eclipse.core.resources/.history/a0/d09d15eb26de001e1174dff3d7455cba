@@ -1,0 +1,5 @@
+package com.appoint.model;
+
+public class EmailRequest {
+
+}
