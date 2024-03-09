@@ -1,0 +1,21 @@
+server.port=5002
+
+spring.mvc.pathmatch.matching-strategy= ANT_PATH_MATCHER
+
+
+spring.data.mongodb.database=HMS-Appoint-DB
+spring.data.mongodb.host=localhost
+spring.data.mongodb.port=27017
+
+spring.application.name=Appointment-Service
+
+spring.activemq.broker-url=tcp://localhost:61616
+spring.activemq.user=admin
+spring.activemq.password=admin
+
+spring.mail.host=${SMTP_SERVER}
+spring.mail.port=${SMTP_HOST}
+spring.mail.username=${EMAILID}
+spring.mail.password=${EMAIL_PASSWORD}
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true

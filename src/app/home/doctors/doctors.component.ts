@@ -89,7 +89,7 @@ export class DoctorsComponent {
       }else{
         this.bookAppointment(this.Id, user,f);
       }
-
+      window.location.reload();
     })
   }
 
@@ -104,13 +104,21 @@ export class DoctorsComponent {
     }
 this.appointmentService.createAppointment(Ids,user,this.form).subscribe((data) =>{
   console.log(data);
+});
+this.appointmentService.getAppointmentMessage().subscribe((appointmentMessage) =>{
+  console.log(appointmentMessage);
+  // const emailData = {
+  //   to: appointmentMessage.email;
+  // }
+  
+  // this.appointmentService.sendEmail(emailData).subscribe((data) =>{
+  //   console.log("Email Data",data);
+  // })
 })
+
+
+
   }
-
-
-
-   
-
 
 }
 
