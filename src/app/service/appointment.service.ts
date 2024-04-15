@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,15 @@ export class AppointmentService {
 
   createAppointment(doctorId:string, patientName:string,appointment:any){
     return this.http.post(this.APPOINTMENT_URL+'created/'+doctorId+'/'+patientName,appointment);
+  }
+
+  getAppointmentMessage()
+  {
+    return this.http.get(this.APPOINTMENT_URL+'appointment-message');
+  }
+
+  sendEmail(emailData: any):Observable<any> {
+    return this.http.post(this.APPOINTMENT_URL+'/send-email',emailData);
   }
 
   getByUsername(username:string){

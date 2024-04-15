@@ -1,61 +1,60 @@
 <app-header></app-header>
 <div class="page-content page-container" id="page-content" *ngIf="showPatientBoard">
-    <div class="padding">
-        <div class="row container d-flex justify-content-center">
-
-<div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Appointment History</h4>
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>Appointment ID</th>
-                          <th>Doctor Name</th>
-                          <th>Doctor Specialization</th>
-                          <th>Doctor Qualification</th>
-                          <th>Doctor Availability</th>
-                          <th>Cause</th>
-                          <th>Fees</th>
-                          <th>Scheduled Date</th>
-                          <th>Status</th>
-                          <th>Payment Status</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody *ngFor="let i of appList">
-                        <tr>
-                          <td>{{i.appointId}}</td>
-                          <td>{{i.doctor.name}}
-                          </td>
-                          <td>{{i.doctor.specialization}}
-                        </td>
-                        <td>{{i.doctor.qualification}}
-                        </td>
-                        <td>{{i.doctor.daysOfAvail}}
-                        </td>
-                          <td>{{i.cause}}</td>
-                          <td>&#8377;{{i.totalFees}}</td>
-                          <td>{{i.schedule}}</td>
-                          <td><label [ngClass]="{
-                            'badge badge-danger':i.status === 'processing',
-                            'badge badge-success':i.status === 'confirmed'
-                          }">{{i.status}}</label></td>
-                          <td>{{i.
-                            paymentStatus}}
-                            </td>
-                          <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#PaymentModal" *ngIf="showPayButton(i.paymentStatus)" (click)="payNow(i.appointId, i.username, i.totalFees)" style="width:80px; height: 40px;">Pay</button></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+  <div class="padding">
+    <div class="container">
+      <div class="row justify-content-center">
+  
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Appointment History</h4>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Appointment ID</th>
+                      <th>Doctor Name</th>
+                      <th>Doctor Specialization</th>
+                      <th>Doctor Qualification</th>
+                      <th>Doctor Availability</th>
+                      <th>Cause</th>
+                      <th>Fees</th>
+                      <th>Scheduled Date</th>
+                      <th>Status</th>
+                      <th>Payment Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let i of appList">
+                    <tr>
+                      <td>{{i.appointId}}</td>
+                      <td>{{i.doctor.name}}</td>
+                      <td>{{i.doctor.specialization}}</td>
+                      <td>{{i.doctor.qualification}}</td>
+                      <td>{{i.doctor.daysOfAvail}}</td>
+                      <td>{{i.cause}}</td>
+                      <td>&#8377;{{i.totalFees}}</td>
+                      <td>{{i.schedule}}</td>
+                      <td><label [ngClass]="{
+                        'badge badge-danger':i.status === 'processing',
+                        'badge badge-success':i.status === 'confirmed'
+                      }">{{i.status}}</label></td>
+                      <td>{{i.paymentStatus}}</td>
+                      <td>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#PaymentModal" *ngIf="showPayButton(i.paymentStatus)" (click)="payNow(i.appointId, i.username, i.totalFees)">Pay</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
-            
-            </div>
-              </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
             </div>
 
 

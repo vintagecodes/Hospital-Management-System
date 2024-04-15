@@ -1,6 +1,3 @@
-.text{
-    background-color: #00c6a9;
-}
 
 .nav-link{
     color: black;
@@ -10,4 +7,18 @@
 
 .nav-link:hover{
     background-color: grey;
+}
+
+.sidebar {
+    width: 80%; /* Adjust width according to your design */
+    height: 100vh; /* Set height to full viewport height */
+    background-color: #00c6a9;
+    color: white;
+    padding: 20px;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        width: 280px; /* Set a fixed width for larger screens */
+    }
 }
