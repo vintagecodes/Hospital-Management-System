@@ -1,10 +1,12 @@
 package sec.model.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import exception.CustomException;
+import io.jsonwebtoken.security.InvalidKeyException;
 import jakarta.security.auth.message.AuthException;
 import sec.Controller.AuthController;
 import sec.model.ERole;
@@ -30,6 +33,7 @@ import sec.payLoad.JwtResponse;
 import sec.payLoad.LoginRequest;
 import sec.payLoad.MessageResponse;
 import sec.payLoad.SignupRequest;
+import sec.repository.LogonInfoRepository;
 import sec.repository.RoleRepository;
 import sec.repository.UserRepository;
 import sec.security.JwtUtils;
@@ -43,6 +47,8 @@ public class AuthService {
 	UserRepository userRepository;
 	@Autowired
 	RoleRepository roleRepository;
+	@Autowired
+	LogonInfoRepository logonInfoRepository;
 	@Autowired
 	PasswordEncoder encoder;
 	@Autowired
@@ -60,7 +66,7 @@ public class AuthService {
 	
 //	usage: for authenticate the user by login and in response it will give the JWT token 
 	
-	public ResponseEntity<?> authenticateUser(LoginRequest loginRequest){
+	public ResponseEntity<?> authenticateUser(LoginRequest loginRequest) throws InvalidKeyException, UnsupportedEncodingException{
 		
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -77,11 +83,13 @@ public class AuthService {
 		List<String> roles = userDetails.getAuthorities().stream()
 					.map(item -> item.getAuthority())
 					.collect(Collectors.toList());
-			return ResponseEntity.ok(new JwtResponse(jwt, 
-					 userDetails.getUserId(), 
-					 userDetails.getUsername(), 
-					 userDetails.getEmail(), 
-					 roles));
+		JwtResponse jwtResponse = new JwtResponse(jwt, 
+				 userDetails.getUserId(), 
+				 userDetails.getUsername(), 
+				 userDetails.getEmail(),
+				 roles);
+		logonInfoRepository.save(jwtResponse);
+			return ResponseEntity.ok(jwtResponse);
 	}
 	
 	
@@ -138,12 +146,28 @@ public class AuthService {
 		return userRepository.findAll();
 	}
 	
+	public ResponseEntity<?> getLogonInfoAsPerUserName(String username)
+	{
+		JwtResponse jwtResponse =  logonInfoRepository.findByUsername(username);
+		if(null == jwtResponse)
+		{
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(jwtResponse);
+	}
+	
 	public Optional<User> getDetailsByUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
 	
 	public void deleteUsers(String username) {
 		userRepository.deleteByUsername(username);
+	}
+	
+	public String logoutUser(String username)
+	{
+		logonInfoRepository.deleteByUsername(username);
+		return "Logged Off Successfully!";
 	}
 	
 	public LogoutConfigurer<HttpSecurity> logout(HttpSecurity http) throws Exception {

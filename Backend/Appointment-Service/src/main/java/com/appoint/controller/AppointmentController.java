@@ -33,14 +33,8 @@ public class AppointmentController {
 	 private EmailService emailService;
 	
 	@PostMapping("/created/{doctorId}/{name}")
-	public ResponseEntity<Appointment> createAppointment(@PathVariable String doctorId, @PathVariable String name, @RequestBody Appointment appointment)  throws CustomException, InvalidClassException{
-		
-		try {
-			Appointment appointment2 = appointmentService.createAppointment(doctorId, name, appointment);
-			return ResponseEntity.ok(appointment2);
-		} catch (CustomException e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	public ResponseEntity<?> createAppointment(@PathVariable String doctorId, @PathVariable String name, @RequestBody Appointment appointment)  throws CustomException, InvalidClassException{
+			return appointmentService.createAppointment(doctorId, name, appointment);
 	}
 	
 	@GetMapping("/appointment-message")
